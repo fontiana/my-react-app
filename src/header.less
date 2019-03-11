@@ -1,0 +1,20 @@
+@import "variables.less";
+.top-bar {
+    background-color: #f7f7f7;
+    border-color: #e3e3e3;
+    height: 43px;
+    top: 0;
+    position: fixed;
+    z-index: 200;
+    width: 100%;
+    -webkit-transition: height 200ms ease-in;
+    transition: height 200ms ease-in;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.top-bar-inner {
+    max-width: @inner-width;
+    height: 100%;
+    margin: 0 auto;
+}
