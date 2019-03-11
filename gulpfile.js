@@ -6,7 +6,7 @@ const browserSync = require('browser-sync').create();
 const reload = browserSync.reload;
 
 gulp.task('compile-less', function () {
-    gulp.src('./src/style.less')
+    gulp.src('./src/main.less')
         .pipe(less())
         .pipe(minifyCSS({}))
         .pipe(concat("framework.min.css"))
