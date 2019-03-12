@@ -1,8 +1,11 @@
 // Container
 @inner-width: 950px;
-
 body {
-    margin:0;
+    margin: 0;
+    font-family: @font-family;
+    color: @primary;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 #page-background {
@@ -10,17 +13,15 @@ body {
 }
 
 .content {
-    padding-top: 80px;
-
-    .main-content {
-        min-height: 380px;
-        background-color: #fff;
-        padding: 0 20px;
-        border-left: 1px solid #f1f1f1;
-        border-right: 1px solid #f1f1f1;
-
-        max-width: @inner-width;
-        height: 100%;
-        margin: 0 auto;
+    min-height: 380px;
+    background-color: #fff;
+    padding: 0 20px;
+    border-left: 1px solid #f1f1f1;
+    border-right: 1px solid #f1f1f1;
+    max-width: @inner-width;
+    height: 100%;
+    margin: 0 auto;
+    .editor {
+        padding-top: 80px;
     }
 }
