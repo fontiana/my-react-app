@@ -1,11 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const config = require('frint-config');
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-
-const extractLess = new ExtractTextPlugin({
-  filename: "[name].[contenthash].css"
-});
 
 module.exports = {
   entry: {
@@ -27,16 +22,18 @@ module.exports = {
           presets: [
             'travix'
           ]
-        }
+        },
       },
       {
         test: /\.less$/,
-        issuer: /\.less$/,
-        include: [
-          path.resolve(__dirname, "less"),
-          path.resolve(__dirname, "node_modules")
-        ],
-        loader: 'less-loader'
+        exclude: '/node_modules/',
+        use: [{
+          loader: 'style-loader'
+        }, {
+          loader: "css-loader"
+        }, {
+          loader: 'less-loader'
+        }]
       }
     ]
   },
@@ -47,8 +44,7 @@ module.exports = {
       chunksSortMode({ names }) {
         return names[0] === 'core' ? -1 : 1;
       }
-    }),
-    extractLess
+    })
   ],
   externals: []
     .concat(config.lodashExternals)

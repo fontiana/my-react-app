@@ -2,6 +2,7 @@ import React from 'react';
 import { Region, observe } from 'frint-react';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+import '../../styles/main.less';
 
 class Root extends React.Component {
   render() {
