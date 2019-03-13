@@ -9,7 +9,23 @@
 </head>
 
 <body>
-    <div class="modal-overlay" style="z-index: 9995; opacity: 0.8; width: 100%; height: 100%;"></div>
+    <div class="modal modal-overlay">
+        <div class="modal-window">
+            <div class="modal-content">
+                <h4>Add new task</h4>
+
+                <label>Title</label>
+                <input type="text" />
+                <label>Description</label>
+                <textarea type="text" rows="6"></textarea>
+                <a class="button" href="#">Add Task</a>
+
+                <button class="close-button" aria-label="Close modal" type="button">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+        </div>
+    </div>
     <div id="page-background">
         <div class="top-bar">
             <div class="top-bar-inner">
@@ -40,7 +56,7 @@
         <div class="content">
             <div class="editor">
                 <div class="row-columns">
-                    <div class="col medium">
+                    <div class="col">
                         <div class="task">
                             <div class="task-header">
                                 <h4>Lorem ipsum dolor si et arcu blandit hendrerit.
@@ -55,7 +71,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col medium">
+                    <div class="col">
                         <div class="task">
                             <div class="task-header">
                                 <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h5>
@@ -66,7 +82,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col medium">
+                    <div class="col">
                         <div class="task">
                             <div class="task-header">
                                 <h4>Lorem ipsum dolor sit amet..</h5>
@@ -76,7 +92,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col medium">
+                    <div class="col ">
                         <div class="task">
                             <div class="task-header">
                                 <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Q
@@ -94,7 +110,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col medium">
+                    <div class="col">
                         <div class="task">
                             <div class="task-header">
                                 <h4>Lorem ipsum dolor sit amet.</h5>
@@ -111,11 +127,7 @@
         </div>
     </div>
 
-    <div class="modal-window">
-        <div class="modal-content">
-            <h1>Teste</h1>
-        </div>
-    </div>
+
 </body>
 
 </html>
