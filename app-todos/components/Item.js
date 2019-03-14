@@ -9,47 +9,53 @@ class Item extends React.Component {
     const { todo } = this.props;
 
     return (
-      <div style={{background: '#f1f1f1', border: '1px solid #e1e1e1', marginBottom: '15px', padding: '15px', borderRadius: '4px'}}>
-        {!this.props.showEditForm && (
-          <p>
-            {todo.title}
-
-            [<a href="javascript:" onClick={() => this.props.edit(todo)}>edit</a>]
-            [<a href="javascript:" onClick={() => this.props.removeTodo(todo.id)}>x</a>]
-          </p>
-        )}
-
-        {this.props.showEditForm && (
-          <p>
-            <input
-              className="u-full-width"
-              type="text"
-              placeholder="my todo title..."
-              id="todoItemInput"
-              value={this.props.inputValue}
-              onChange={(e) => this.props.changeInput(e.target.value)}
-            />
-
-            <button
-              type="button"
-              className="button-primary"
-              onClick={() => this.props.submit(todo.id, this.props.inputValue)}
-            >
-              Submit
-            </button>
-
-            [<a href="javascript:" onClick={() => this.props.cancelEdit()}>cancel</a>]
-          </p>
-        )}
-
-        <p>Below is Region <strong>todo-item</strong> that is specific to this Todo item:</p>
-
-        <Region
-          name="todo-item"
-          uniqueKey={`todo-item-${todo.id}`}
-          data={{text: todo.title}}
-        />
+      <div className="col">
+        <div className="task">
+          <div className="task-header">
+            <h4>{todo.title}</h4>
+          </div>
+          <div className="task-body">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Morbi non vulputate ipsum, sed iaculis nisl. Nam lacinia,
+                lectus id iaculis scelerisque, elit nibh sagittis ante,
+                                    sit amet semper turpis turpis at arcu.</p>
+          </div>
+        </div>
       </div>
+
+      // <div style={{ background: '#f1f1f1', border: '1px solid #e1e1e1', marginBottom: '15px', padding: '15px', borderRadius: '4px' }}>
+      //   {!this.props.showEditForm && (
+      //     <p>
+      //       {todo.title}
+
+      //       [<a href="javascript:" onClick={() => this.props.edit(todo)}>edit</a>]
+      //       [<a href="javascript:" onClick={() => this.props.removeTodo(todo.id)}>x</a>]
+      //     </p>
+      //   )}
+
+      //   {this.props.showEditForm && (
+      //     <p>
+      //       <input
+      //         className="u-full-width"
+      //         type="text"
+      //         placeholder="my todo title..."
+      //         id="todoItemInput"
+      //         value={this.props.inputValue}
+      //         onChange={(e) => this.props.changeInput(e.target.value)}
+      //       />
+
+      //       <button
+      //         type="button"
+      //         className="button-primary"
+      //         onClick={() => this.props.submit(todo.id, this.props.inputValue)}
+      //       >
+      //         Submit
+      //       </button>
+
+      //       [<a href="javascript:" onClick={() => this.props.cancelEdit()}>cancel</a>]
+      //     </p>
+      //   )}
+      // </div>
     );
   }
 }

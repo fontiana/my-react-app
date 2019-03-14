@@ -28,6 +28,14 @@ export default createApp({
                   id: _.uniqueId(),
                   title: 'Second todo',
                 },
+                {
+                  id: _.uniqueId(),
+                  title: 'Third todo',
+                },
+                {
+                  id: _.uniqueId(),
+                  title: 'Forth todo',
+                },
               ]
             },
           },
