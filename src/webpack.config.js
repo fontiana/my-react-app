@@ -18,15 +18,16 @@ module.exports = {
       {
         test: /\.(js)$/,
         loader: 'babel-loader',
-        query: {
+        exclude: /node_modules/,
+        query: { 
           presets: [
             'travix'
           ]
-        },
+        },      
       },
       {
         test: /\.less$/,
-        exclude: '/node_modules/',
+        exclude: /node_modules/,
         use: [{
           loader: 'style-loader'
         }, {
