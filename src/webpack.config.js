@@ -17,13 +17,13 @@ module.exports = {
     rules: [
       {
         test: /\.(js)$/,
-        loader: 'babel-loader',
         exclude: /node_modules/,
-        query: { 
+        loader: 'babel-loader',
+        query: {
           presets: [
-            'travix'
-          ]
-        },      
+            'travix',
+          ],
+        },
       },
       {
         test: /\.less$/,
