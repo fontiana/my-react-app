@@ -6,35 +6,22 @@ import { map } from 'rxjs/operator/map';
 import { merge } from 'rxjs/operator/merge';
 import { scan } from 'rxjs/operator/scan';
 import { addTodo } from '../actions/todos';
-import Item from './Item';
+import Task from './Task';
 
 class Root extends React.Component {
   render() {
     return (
-      <div class="row-columns">
-        {/* <input
-          className="u-full-width"
-          type="text"
-          placeholder="my todo title..."
-          id="todoInput"
-          value={this.props.inputValue}
-          onChange={(e) => this.props.changeInput(e.target.value)}
-        /> */}
-
-        {/* <button
-          type="button"
-          className="button-primary"
-          onClick={() => this.props.addTodo(this.props.inputValue)}
-        >
-          Submit
-        </button> */}
-
-          {this.props.todos.map((todo, index) => (
-            <Item
-              key={`todo-${index}`}
-              todo={todo}
-            />
-          ))}
+      <div className="content">
+        <div className="editor">
+          <div class="row-columns">
+            {this.props.todos.map((todo, index) => (
+              <Task
+                key={`todo-${index}`}
+                todo={todo}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     );
   }

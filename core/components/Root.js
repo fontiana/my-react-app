@@ -9,11 +9,7 @@ class Root extends React.Component {
     return (
       <div id="page-background">
         <Header/>
-        <div className="content">
-          <div className="editor">
-            <Region name="main" />
-          </div>
-        </div>
+        <Region name="main" />
       </div>
     );
   }
