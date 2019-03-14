@@ -2,6 +2,7 @@ import React from 'react';
 import { observe, streamProps, Region } from 'frint-react';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
+import EditIcon from './EditIcon';
 import { removeTodo, updateTodo } from '../actions/todos';
 
 class Item extends React.Component {
@@ -10,9 +11,10 @@ class Item extends React.Component {
 
     return (
       <div className="col">
-        <div className="task">
+        <div className="task" onMouseEnter={() => this.props.showOptions()}>
           <div className="task-header">
             <h4>{todo.title}</h4>
+            <EditIcon />
           </div>
           <div className="task-body">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -89,6 +91,9 @@ export default observe(function (app) {
 
     // form actions
     .set({
+      showOptions: () => {
+        console.log("Showing icons");
+      },
       edit: (todo) => {
         formInput$.next(todo.title); // set input field value
         showEditForm$.next(true);

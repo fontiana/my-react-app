@@ -13,7 +13,7 @@ class Root extends React.Component {
     return (
       <div className="content">
         <div className="editor">
-          <div class="row-columns">
+          <div className="row-columns">
             {this.props.todos.map((todo, index) => (
               <Task
                 key={`todo-${index}`}
