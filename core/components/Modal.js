@@ -6,7 +6,8 @@ import Logger from '../services/Logger.js';
 
 class Modal extends React.Component {
     render() {
-        if (this.props.isClosed) {
+        const { isClosed } = this.props;
+        if (isClosed) { //Next time I'll do a fade out animation
             return null;
         }
 

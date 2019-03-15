@@ -42,6 +42,7 @@ export default observe(function (app) { // eslint-disable-line func-names
       :: map((state) => {
     return {
       todos: state.todos.records,
+      isClosed: true
     };
   });
 

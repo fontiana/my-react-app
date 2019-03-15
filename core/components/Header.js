@@ -1,6 +1,6 @@
 import React from 'react';
 
-import AddIcon from './AddIcon';
+import { Add } from './Icons';
 
 class Header extends React.Component {
     render() {
@@ -12,7 +12,7 @@ class Header extends React.Component {
                     </div>
                     <div className="top-bar-right">
                         <span className="icons">
-                            <AddIcon />
+                            <Add />
                             <span>add task</span>
                         </span>
                     </div>

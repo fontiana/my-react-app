@@ -2,10 +2,10 @@ import React from 'react';
 import { observe, streamProps, Region } from 'frint-react';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
-import EditIcon from './EditIcon';
+import { Edit } from './Icons';
 import { removeTodo, updateTodo } from '../actions/todos';
 
-class Item extends React.Component {
+class Task extends React.Component {
   render() {
     const { todo } = this.props;
 
@@ -15,7 +15,7 @@ class Item extends React.Component {
           <div className="task-header">
             <h4>{todo.title}</h4>
             <span className="icons" onClick={() => this.props.edit(todo)}>
-              <EditIcon />
+              <Edit />
             </span>
           </div>
           <div className="task-body">
@@ -109,4 +109,4 @@ export default observe(function (app) {
 
     // final observable
     .get$();
-})(Item);
+})(Task);
