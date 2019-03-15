@@ -11,16 +11,18 @@ class Item extends React.Component {
 
     return (
       <div className="col">
-        <div className="task" onMouseEnter={() => this.props.showOptions()}>
+        <div className="task">
           <div className="task-header">
             <h4>{todo.title}</h4>
-            <EditIcon />
+            <span className="icons" onClick={() => this.props.edit(todo)}>
+              <EditIcon />
+            </span>
           </div>
           <div className="task-body">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 Morbi non vulputate ipsum, sed iaculis nisl. Nam lacinia,
                 lectus id iaculis scelerisque, elit nibh sagittis ante,
-                                    sit amet semper turpis turpis at arcu.</p>
+                                      sit amet semper turpis turpis at arcu.</p>
           </div>
         </div>
       </div>
@@ -91,9 +93,6 @@ export default observe(function (app) {
 
     // form actions
     .set({
-      showOptions: () => {
-        console.log("Showing icons");
-      },
       edit: (todo) => {
         formInput$.next(todo.title); // set input field value
         showEditForm$.next(true);
