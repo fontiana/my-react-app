@@ -4,8 +4,7 @@ const path = require('path');
 
 module.exports = {
   entry: {
-    core: path.resolve(__dirname, 'core/index.js'),
-    'app-todos': path.resolve(__dirname, 'app-todos/index.js')
+    core: path.resolve(__dirname, 'core/index.js')
   },
   devtool: 'source-map',
   output: {
