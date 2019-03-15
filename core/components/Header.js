@@ -1,4 +1,5 @@
 import React from 'react';
+import { observe, streamProps, Region } from 'frint-react';
 
 import { Add } from './Icons';
 
@@ -11,7 +12,7 @@ class Header extends React.Component {
                         <h1>todo</h1>
                     </div>
                     <div className="top-bar-right">
-                        <span className="icons">
+                        <span className="icons" onClick={() => this.props.open()}>
                             <Add />
                             <span>add task</span>
                         </span>
@@ -21,4 +22,13 @@ class Header extends React.Component {
         )
     }
 };
-export default Header;
+export default observe(function () {
+    return streamProps()
+        .set({
+            open: () => {
+                isClosed$.next(false);
+                Logger.debug("open modal");
+            }
+        })
+        .get$();
+})(Header);

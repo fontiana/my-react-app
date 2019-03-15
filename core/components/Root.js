@@ -16,7 +16,8 @@ class Root extends React.Component {
   render() {
     return (
       <div id="page-background">
-        <Modal />
+        <Modal 
+          isClosed={this.props.isClosed$} />
         <Header />
         <div className="content">
           <div className="editor">
@@ -41,10 +42,11 @@ export default observe(function (app) { // eslint-disable-line func-names
   const state$ = store.getState$()
       :: map((state) => {
     return {
-      todos: state.todos.records,
-      isClosed: true
+      todos: state.todos.records
     };
   });
+
+  const isClosed$ = new BehaviorSubject(true);
 
   const formInput$ = new BehaviorSubject('')
     :: map((inputValue) => {
@@ -52,6 +54,7 @@ export default observe(function (app) { // eslint-disable-line func-names
       inputValue,
     };
   });
+
   const clearInput = () => formInput$.next('');
   const changeInput = value => formInput$.next(value);
 
@@ -61,11 +64,11 @@ export default observe(function (app) { // eslint-disable-line func-names
       return store.dispatch(addTodo(...args));
     },
     changeInput,
-    clearInput,
+    clearInput
   });
 
   return state$
-    :: merge(actions$, formInput$)
+    :: merge(actions$, formInput$, isClosed$)
     :: scan((props, emitted) => {
     return {
       ...props,

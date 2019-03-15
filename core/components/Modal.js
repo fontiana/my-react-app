@@ -35,20 +35,12 @@ class Modal extends React.Component {
 };
 
 export default observe(function () {
-    const isClosed$ = new BehaviorSubject(false);
-
-    const close = () => {
-        isClosed$.next(true);
-        Logger.debug("Close modal");
-    };
-
     return streamProps()
-        .set(
-            isClosed$,
-            (isClosed) => ({ isClosed })
-        )
         .set({
-            close: close
+            close: () => {
+                isClosed$.next(true);
+                Logger.debug("Close modal");
+            }
         })
         .get$();
 })(Modal);
