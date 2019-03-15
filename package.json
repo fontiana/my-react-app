@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
-    "bundle:vendors": "webpack --config ./vendors/webpack.config.js",
+    "bundle:vendors": "webpack --config ./vendors/webpack.config.js ",
     "bundle:apps": "webpack",
     "build": "npm run bundle:vendors && npm run bundle:apps",
     "start:server": "live-server build",
@@ -18,7 +18,8 @@
     "prop-types": "^15.5.10",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
-    "rxjs": "^5.4.1"
+    "rxjs": "^5.4.1",
+    "travix-logger": "^0.6.5"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",

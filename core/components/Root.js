@@ -16,7 +16,7 @@ class Root extends React.Component {
   render() {
     return (
       <div id="page-background">
-        {/* <Modal /> */}
+        <Modal />
         <Header />
         <div className="content">
           <div className="editor">

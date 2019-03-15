@@ -1,6 +1,4 @@
 import React from 'react';
-import { observe, streamProps, Region } from 'frint-react';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import AddIcon from './AddIcon';
 
@@ -23,6 +21,4 @@ class Header extends React.Component {
         )
     }
 };
-export default observe(function (app) {
-    const showModal$ = new BehaviorSubject(false);
-})(Header);
+export default Header;
