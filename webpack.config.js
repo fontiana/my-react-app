@@ -4,7 +4,10 @@ const path = require('path');
 
 module.exports = {
   entry: {
-    core: path.resolve(__dirname, 'core/index.js')
+    core: path.resolve(__dirname, 'core/index.js'),
+    'app-header': path.resolve(__dirname, 'app-header/index.js'),
+    'app-modal': path.resolve(__dirname, 'app-modal/index.js'),
+    'app-todos': path.resolve(__dirname, 'app-todos/index.js')
   },
   devtool: 'source-map',
   output: {
@@ -16,13 +19,13 @@ module.exports = {
     rules: [
       {
         test: /\.(js)$/,
-        exclude: /node_modules/,
         loader: 'babel-loader',
+        exclude: /node_modules/,
         query: {
           presets: [
-            'travix',
-          ],
-        },
+            'travix'
+          ]
+        }
       },
       {
         test: /\.less$/,

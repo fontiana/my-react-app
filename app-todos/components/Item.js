@@ -2,20 +2,30 @@ import React from 'react';
 import { observe, streamProps, Region } from 'frint-react';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
-import { Edit } from './Icons';
 import { removeTodo, updateTodo } from '../actions/todos';
+import { Edit, Remove } from './Icons';
 
-class Task extends React.Component {
+class Item extends React.Component {
   render() {
     const { todo } = this.props;
 
     return (
       <div className="col">
+        {/* {!this.props.showEditForm && (
+          <p>
+            [<a href="javascript:" onClick={() => this.props.edit(todo)}>edit</a>]
+            [<a href="javascript:" onClick={() => this.props.removeTodo(todo.id)}>x</a>]
+          </p>
+        )} */}
+
         <div className="task">
           <div className="task-header">
             <h4>{todo.title}</h4>
             <span className="icons" onClick={() => this.props.edit(todo)}>
               <Edit />
+            </span>
+            <span className="icons" onClick={() => this.props.removeTodo(todo.id)}>
+              <Remove />
             </span>
           </div>
           <div className="task-body">
@@ -25,41 +35,29 @@ class Task extends React.Component {
                                       sit amet semper turpis turpis at arcu.</p>
           </div>
         </div>
+        {this.props.showEditForm && (
+          <p>
+            <input
+              className="u-full-width"
+              type="text"
+              placeholder="my todo title..."
+              id="todoItemInput"
+              value={this.props.inputValue}
+              onChange={(e) => this.props.changeInput(e.target.value)}
+            />
+
+            <button
+              type="button"
+              className="button-primary"
+              onClick={() => this.props.submit(todo.id, this.props.inputValue)}
+            >
+              Submit
+            </button>
+
+            [<a href="javascript:" onClick={() => this.props.cancelEdit()}>cancel</a>]
+          </p>
+        )}
       </div>
-
-      // <div style={{ background: '#f1f1f1', border: '1px solid #e1e1e1', marginBottom: '15px', padding: '15px', borderRadius: '4px' }}>
-      //   {!this.props.showEditForm && (
-      //     <p>
-      //       {todo.title}
-
-      //       [<a href="javascript:" onClick={() => this.props.edit(todo)}>edit</a>]
-      //       [<a href="javascript:" onClick={() => this.props.removeTodo(todo.id)}>x</a>]
-      //     </p>
-      //   )}
-
-      //   {this.props.showEditForm && (
-      //     <p>
-      //       <input
-      //         className="u-full-width"
-      //         type="text"
-      //         placeholder="my todo title..."
-      //         id="todoItemInput"
-      //         value={this.props.inputValue}
-      //         onChange={(e) => this.props.changeInput(e.target.value)}
-      //       />
-
-      //       <button
-      //         type="button"
-      //         className="button-primary"
-      //         onClick={() => this.props.submit(todo.id, this.props.inputValue)}
-      //       >
-      //         Submit
-      //       </button>
-
-      //       [<a href="javascript:" onClick={() => this.props.cancelEdit()}>cancel</a>]
-      //     </p>
-      //   )}
-      // </div>
     );
   }
 }
@@ -109,4 +107,4 @@ export default observe(function (app) {
 
     // final observable
     .get$();
-})(Task);
+})(Item);
