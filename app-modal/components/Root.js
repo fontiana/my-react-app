@@ -59,20 +59,42 @@ class Root extends React.Component {
 }
 
 export default observe(function (app) { // eslint-disable-line func-names
-  // start with default props
-  return streamProps({})  
-    .set( // map state to this Component's props
+  return streamProps({})
+    //Self
+    .set(
       app.get('store').getState$(),
       state => ({ modal: state.modal.value })
-    ).set( // map Region's props to this Component's props
+    )
+    .set(
       app.get('region').getProps$(),
       regionProps => ({ regionProps })
-    ).setDispatch({ // map dispatchable actions
+    )
+    .setDispatch({
       openModal,
       closeModal
     },
       app.get('store')
-    ).set({  // services
+    )
+    .set({
       logger: app.get('logger')
-    }).get$();  // return composed Observable
+    })
+
+    // other app: TodosApp
+    .set(
+      app.getAppOnceAvailable$('TodosApp'),
+      todosApp => todosApp.get('store').getState$(),
+      todosAppState => ({ todos: todosAppState.todos.value })
+    )
+    .set(
+      app.getAppOnceAvailable$('TodosApp'),
+      todosApp => todosApp.get('store'),
+      todosAppStore => ({
+        addTodo: todos => todosAppStore.dispatch({
+          type: 'TODOS_ADD',
+          todos
+        })
+      })
+    )
+
+    .get$();  // return composed Observable
 })(Root);
