@@ -25,10 +25,23 @@ class Root extends React.Component {
             <h4>Add new task</h4>
 
             <label>Title</label>
-            <input type="text" />
+
+            <input
+              type="text"
+              id="todoInput"
+              value={this.props.inputValue}
+              onChange={(e) => this.props.changeInput(e.target.value)}
+            />
+
             <label>Description</label>
             <textarea type="text" rows="6"></textarea>
-            <a className="button" href="#">Add Task</a>
+
+            <a
+              className="button"
+              onClick={() => this.props.addTodo(this.props.inputValue, "description to be defined")}
+            >
+              Add Todo
+            </a>
 
             <button
               className="close-button"
@@ -46,32 +59,20 @@ class Root extends React.Component {
 }
 
 export default observe(function (app) { // eslint-disable-line func-names
-  return streamProps({}) // start with defualt props
-    // map state to this Component's props
-    .set(
+  // start with default props
+  return streamProps({})  
+    .set( // map state to this Component's props
       app.get('store').getState$(),
       state => ({ modal: state.modal.value })
-    )
-
-    // map Region's props to this Component's props
-    .set(
+    ).set( // map Region's props to this Component's props
       app.get('region').getProps$(),
       regionProps => ({ regionProps })
-    )
-
-    // map dispatchable actions
-    .setDispatch({
+    ).setDispatch({ // map dispatchable actions
       openModal,
       closeModal
     },
       app.get('store')
-    )
-
-    // services
-    .set({
+    ).set({  // services
       logger: app.get('logger')
-    })
-
-    // return composed Observable
-    .get$();
+    }).get$();  // return composed Observable
 })(Root);

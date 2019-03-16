@@ -23,10 +23,12 @@ export default createApp({
                 {
                   id: _.uniqueId(),
                   title: 'First todo',
+                  description: 'First description'
                 },
                 {
                   id: _.uniqueId(),
                   title: 'Second todo',
+                  description: 'Second description'
                 },
               ]
             },

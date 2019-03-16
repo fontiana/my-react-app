@@ -19,6 +19,7 @@ export default function todos(state = INITIAL_STATE, action) {
           {
             id: _.uniqueId(),
             title: action.title,
+            description: action.description
           }
         ]
       });
@@ -37,6 +38,7 @@ export default function todos(state = INITIAL_STATE, action) {
             }
 
             todo.title = action.title;
+            todo.description = action.description;
 
             return todo;
           })

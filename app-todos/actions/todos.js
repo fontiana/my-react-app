@@ -4,10 +4,11 @@ import {
   TODOS_UPDATE,
 } from '../constants';
 
-export function addTodo(title) {
+export function addTodo(title, description) {
   return {
     type: TODOS_ADD,
     title,
+    description
   };
 }
 
@@ -18,10 +19,11 @@ export function removeTodo(id) {
   };
 }
 
-export function updateTodo(id, title) {
+export function updateTodo(id, title, description) {
   return {
     type: TODOS_UPDATE,
     id,
     title,
+    description
   };
 }

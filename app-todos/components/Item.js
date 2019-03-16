@@ -11,13 +11,6 @@ class Item extends React.Component {
 
     return (
       <div className="col">
-        {/* {!this.props.showEditForm && (
-          <p>
-            [<a href="javascript:" onClick={() => this.props.edit(todo)}>edit</a>]
-            [<a href="javascript:" onClick={() => this.props.removeTodo(todo.id)}>x</a>]
-          </p>
-        )} */}
-
         <div className="task">
           <div className="task-header">
             <h4>{todo.title}</h4>
@@ -29,10 +22,7 @@ class Item extends React.Component {
             </span>
           </div>
           <div className="task-body">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Morbi non vulputate ipsum, sed iaculis nisl. Nam lacinia,
-                lectus id iaculis scelerisque, elit nibh sagittis ante,
-                                      sit amet semper turpis turpis at arcu.</p>
+            <p>{todo.description}</p>
           </div>
         </div>
         {this.props.showEditForm && (
@@ -100,7 +90,7 @@ export default observe(function (app) {
       },
       cancelEdit,
       submit: (id, newTitle) => {
-        store.dispatch(updateTodo(id, newTitle));
+        store.dispatch(updateTodo(id, newTitle, "changed description"));
         cancelEdit();
       }
     })

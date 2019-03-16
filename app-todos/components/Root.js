@@ -1,10 +1,11 @@
 import React from 'react';
 import { observe } from 'frint-react';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { map } from 'rxjs/operator/map';
 import { merge } from 'rxjs/operator/merge';
 import { scan } from 'rxjs/operator/scan';
+
 import { addTodo } from '../actions/todos';
 import Item from './Item';
 
@@ -12,14 +13,9 @@ class Root extends React.Component {
   render() {
     return (
       <div className="row-columns">
-        <label htmlFor="todoInput">
-          Create a new Todo item
-        </label>
 
-        <input
-          className="u-full-width"
+        {/* <input
           type="text"
-          placeholder="my todo title..."
           id="todoInput"
           value={this.props.inputValue}
           onChange={(e) => this.props.changeInput(e.target.value)}
@@ -28,19 +24,17 @@ class Root extends React.Component {
         <button
           type="button"
           className="button-primary"
-          onClick={() => this.props.addTodo(this.props.inputValue)}
+          onClick={() => this.props.addTodo(this.props.inputValue, "description to be defined")}
         >
-          Submit
-        </button>
+          Add todo
+        </button> */}
 
-        <div>
           {this.props.todos.map((todo, index) => (
             <Item
               key={`todo-${index}`}
               todo={todo}
             />
           ))}
-        </div>
       </div>
     );
   }
