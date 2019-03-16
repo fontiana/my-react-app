@@ -1,6 +1,6 @@
 import React from 'react';
 import { observe, streamProps } from 'frint-react';
-import PropTypes from 'prop-types';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import {
   openModal,
@@ -8,16 +8,7 @@ import {
 } from '../actions/modal';
 
 class Root extends React.Component {
-  static propTypes = {
-    modal: PropTypes.bool,
-    openModal: PropTypes.func,
-    closeModal: PropTypes.func,
-    regionProps: PropTypes.object,
-    logger: PropTypes.object,
-  };
-
   render() {
-    this.props.logger.debug("Rendering App-modal");
     return (
       <div className={`modal modal-overlay ${this.props.modal ? 'is-opened' : ''}`}>
         <div className="modal-window">
@@ -25,20 +16,27 @@ class Root extends React.Component {
             <h4>Add new task</h4>
 
             <label>Title</label>
-
             <input
               type="text"
               id="todoInput"
-              value={this.props.inputValue}
-              onChange={(e) => this.props.changeInput(e.target.value)}
+              value={this.props.titleValue}
+              onChange={(e) => this.props.changeTitleInput(e.target.value)}
             />
 
             <label>Description</label>
-            <textarea type="text" rows="6"></textarea>
+            <textarea
+              type="text"
+              rows="6"
+              value={this.props.descriptionValue}
+              onChange={(e) => this.props.changeDescriptionInput(e.target.value)}
+            ></textarea>
 
             <a
               className="button"
-              onClick={() => this.props.addTodo(this.props.inputValue, "description to be defined")}
+              onClick={() => {
+                this.props.addTodo(this.props.titleValue, this.props.descriptionValue);
+                this.props.closeModal();
+              }}
             >
               Add Todo
             </a>
@@ -59,7 +57,15 @@ class Root extends React.Component {
 }
 
 export default observe(function (app) { // eslint-disable-line func-names
-  return streamProps({})
+  const formTitleInput$ = new BehaviorSubject('');
+  const formDescriptionInput$ = new BehaviorSubject('');
+
+  const clearInputs = () => {
+    formTitleInput$.next('');
+    formDescriptionInput$.next('');
+  };
+
+  return streamProps()
     //Self
     .set(
       app.get('store').getState$(),
@@ -69,6 +75,22 @@ export default observe(function (app) { // eslint-disable-line func-names
       app.get('region').getProps$(),
       regionProps => ({ regionProps })
     )
+    .set(
+      formTitleInput$,
+      (titleValue) => ({ titleValue })
+    )
+    .set(
+      formDescriptionInput$,
+      (descriptionValue) => ({ descriptionValue })
+    )
+    .set({
+      changeTitleInput: (value) => {
+        formTitleInput$.next(value);
+      },
+      changeDescriptionInput: (value) => {
+        formDescriptionInput$.next(value);
+      },
+    })
     .setDispatch({
       openModal,
       closeModal
@@ -89,12 +111,13 @@ export default observe(function (app) { // eslint-disable-line func-names
       app.getAppOnceAvailable$('TodosApp'),
       todosApp => todosApp.get('store'),
       todosAppStore => ({
-        addTodo: todos => todosAppStore.dispatch({
+        addTodo: (title, description) => todosAppStore.dispatch({
           type: 'TODOS_ADD',
-          todos
+          title,
+          description
         })
       })
     )
 
-    .get$();  // return composed Observable
+    .get$(); // composed Observable
 })(Root);

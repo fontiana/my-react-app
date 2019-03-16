@@ -38,49 +38,20 @@ class Root extends React.Component {
     };
 
     return (
-      <div>
-        <div className="top-bar">
-          <div className="top-bar-inner">
-            <div className="top-bar-left">
-              <h1>todo</h1>
-            </div>
-            <div className="top-bar-right">
-              <span
-                className="icons"
-                onClick={() => this.props.openModal('ADD')}
-              >
-                <Add />
-                <span>add task</span>
-              </span>
-            </div>
+      <div className="top-bar">
+        <div className="top-bar-inner">
+          <div className="top-bar-left">
+            <h1>todo</h1>
           </div>
-        </div>
-
-        <div>
-          <button
-            className="button"
-            onClick={() => this.props.changeColor(GREEN_COLOR)}
-            style={{ backgroundColor: GREEN_COLOR, color: '#fff' }}
-          >
-            Green
-          </button>
-
-          <button
-            className="button"
-            onClick={() => this.props.changeColor(RED_COLOR)}
-            style={{ backgroundColor: RED_COLOR, color: '#fff' }}
-          >
-            Red
-          </button>
-
-          <button
-            className="button"
-            onClick={() => this.props.changeColorAsync(ORANGE_COLOR)}
-            style={{ backgroundColor: ORANGE_COLOR, color: '#fff' }}
-          >
-            Async
-          </button>
-
+          <div className="top-bar-right">
+            <span
+              className="icons"
+              onClick={() => this.props.openModal('ADD')}
+            >
+              <Add />
+              <span>add task</span>
+            </span>
+          </div>
         </div>
       </div>
     );
