@@ -27,9 +27,9 @@
 }
 
 .box-align (@type box-align) {
-	-webkit-box-align: @type;
-	-ms-flex-align: @type;
-	align-items: @type;
+    -webkit-box-align: @type;
+    -ms-flex-align: @type;
+    align-items: @type;
 }
 
 .border-radius (@radius: 5px) {
@@ -152,8 +152,15 @@
     -o-transform-origin: @x @y;
 }
 
-.display-flex () {
+.display-flex() {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+}
+
+.responsive(@maxWidth;
+@rules) {
+    @media (max-width: @maxWidth) {
+        @rules();
+    }
 }

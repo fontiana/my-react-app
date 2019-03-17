@@ -1,7 +1,6 @@
 import React from 'react';
 import { observe } from 'frint-react';
 import { map } from 'rxjs/operator/map';
-import { scan } from 'rxjs/operator/scan';
 
 import Item from './Item';
 
@@ -31,12 +30,4 @@ export default observe(function (app) { // eslint-disable-line func-names
   });
 
   return state$
-    :: scan((props, emitted) => {
-    return {
-      ...props,
-      ...emitted,
-    };
-  }, {
-      todos: [],
-    });
 })(Root);
