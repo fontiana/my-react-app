@@ -1,6 +1,5 @@
 import React from 'react';
 import { observe } from 'frint-react';
-import { Observable } from 'rxjs/Observable';
 import { concatMap } from 'rxjs/operator/concatMap';
 import { map } from 'rxjs/operator/map';
 import { merge } from 'rxjs/operator/merge';
@@ -8,17 +7,6 @@ import { scan } from 'rxjs/operator/scan';
 import PropTypes from 'prop-types';
 
 import { Add } from './Icons';
-
-import {
-  changeColor
-} from '../actions/color';
-
-import {
-  GREEN_COLOR,
-  RED_COLOR,
-  ORANGE_COLOR,
-  CHANGE_COLOR_ASYNC
-} from '../constants';
 
 class Root extends React.Component {
   static propTypes = {
@@ -32,11 +20,6 @@ class Root extends React.Component {
   };
 
   render() {
-    const codeStyle = {
-      color: this.props.color,
-      backgroundColor: this.props.color
-    };
-
     return (
       <div className="top-bar">
 
@@ -65,34 +48,13 @@ export default observe(function (app) { // eslint-disable-line func-names
   const store = app.get('store');
   const region = app.get('region');
 
-  const state$ = store.getState$()
-    :: map((state) => {
-    return {
-      color: state.color.value,
-    };
-  });
+  const state$ = store.getState$();
 
   const regionProps$ = region.getProps$()
     :: map((regionProps) => {
     return {
       regionProps,
     };
-  });
-
-  const actions$ = Observable.of({
-    changeColor: (...args) => {
-      return store.dispatch(changeColor(...args));
-    },
-    changeColorAsync: (color) => {
-      return store.dispatch({
-        type: CHANGE_COLOR_ASYNC,
-        color,
-      });
-    },
-  });
-
-  const services$ = Observable.of({
-    logger: app.get('logger')
   });
 
   // other app: ModalApp
@@ -122,8 +84,6 @@ export default observe(function (app) { // eslint-disable-line func-names
   // combine them all into props
   return state$
     :: merge(regionProps$)
-    :: merge(actions$)
-    :: merge(services$)
     :: merge(modalAppState$)
     :: merge(modalAppActions$)
     :: scan((props, emitted) => {
