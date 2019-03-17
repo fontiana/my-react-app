@@ -1,8 +1,7 @@
 import React from 'react';
-import { observe, streamProps, Region } from 'frint-react';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { observe, streamProps } from 'frint-react';
 
-import { removeTodo, updateTodo } from '../actions/todos';
+import { removeTodo } from '../actions/todos';
 import { Edit, Remove } from './Icons';
 
 class Item extends React.Component {
@@ -14,7 +13,7 @@ class Item extends React.Component {
         <div className="task">
           <div className="task-header">
             <h4>{todo.title}</h4>
-            <span className="icons" onClick={() => this.props.edit(todo)}>
+            <span className="icons" onClick={() => this.props.openModal(true, todo)}>
               <Edit />
             </span>
             <span className="icons" onClick={() => this.props.removeTodo(todo.id)}>
@@ -25,76 +24,37 @@ class Item extends React.Component {
             <p>{todo.description}</p>
           </div>
         </div>
-        {this.props.showEditForm && (
-          <p>
-            <input
-              className="u-full-width"
-              type="text"
-              placeholder="my todo title..."
-              id="todoItemInput"
-              value={this.props.inputValue}
-              onChange={(e) => this.props.changeInput(e.target.value)}
-            />
-
-            <button
-              type="button"
-              className="button-primary"
-              onClick={() => this.props.submit(todo.id, this.props.inputValue)}
-            >
-              Submit
-            </button>
-
-            [<a href="javascript:" onClick={() => this.props.cancelEdit()}>cancel</a>]
-          </p>
-        )}
       </div>
     );
   }
 }
 
 export default observe(function (app) {
-  const showEditForm$ = new BehaviorSubject(false); // start with hidden form
-  const formInput$ = new BehaviorSubject('');
   const store = app.get('store');
 
-  const cancelEdit = () => {
-    formInput$.next(''); // clear input field value
-    showEditForm$.next(false);
-  };
-
   return streamProps()
-    // dispatchable actions against store
+    // self
     .setDispatch(
       { removeTodo },
       store
     )
 
-    // stream values
+    // other app: TodosApp
     .set(
-      showEditForm$,
-      (showEditForm) => ({ showEditForm })
+      app.getAppOnceAvailable$('ModalApp'),
+      modalApp => modalApp.get('store').getState$(),
+      modalAppState => ({ modal: modalAppState.modal.value })
     )
     .set(
-      formInput$,
-      (inputValue) => ({ inputValue })
+      app.getAppOnceAvailable$('ModalApp'),
+      modalApp => modalApp.get('store'),
+      modalAppStore => ({
+        openModal: (showEditMode, todo) => modalAppStore.dispatch({
+          type: 'OPEN_MODAL',
+          showEditMode,
+          todo
+        })
+      })
     )
-
-    // form actions
-    .set({
-      edit: (todo) => {
-        formInput$.next(todo.title); // set input field value
-        showEditForm$.next(true);
-      },
-      changeInput: (value) => {
-        formInput$.next(value);
-      },
-      cancelEdit,
-      submit: (id, newTitle) => {
-        store.dispatch(updateTodo(id, newTitle, "changed description"));
-        cancelEdit();
-      }
-    })
-
-    // final observable
     .get$();
 })(Item);

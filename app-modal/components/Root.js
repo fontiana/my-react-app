@@ -13,7 +13,13 @@ class Root extends React.Component {
       <div className={`modal modal-overlay ${this.props.modal ? 'is-opened' : ''}`}>
         <div className="modal-window">
           <div className="modal-content">
-            <h4>Add new task</h4>
+            {!this.props.showEditMode && (
+              <h4>Add new task</h4>
+            )}
+
+            {this.props.showEditMode && (
+              <h4>Edit new task</h4>
+            )}
 
             <label>Title</label>
             <input
@@ -31,15 +37,29 @@ class Root extends React.Component {
               onChange={(e) => this.props.changeDescriptionInput(e.target.value)}
             ></textarea>
 
-            <a
-              className="button"
-              onClick={() => {
-                this.props.addTodo(this.props.titleValue, this.props.descriptionValue);
-                this.props.closeModal();
-              }}
-            >
-              Add Todo
+            {!this.props.showEditMode && (
+              <a
+                className="button"
+                onClick={() => {
+                  this.props.addTodo(this.props.titleValue, this.props.descriptionValue);
+                  this.props.closeModal();
+                }}
+              >
+                Add Todo
             </a>
+            )}
+
+            {this.props.showEditMode && (
+              <a
+                className="button"
+                onClick={() => {
+                  this.props.updateTodo(this.props.todo.id, this.props.titleValue, this.props.descriptionValue);
+                  this.props.closeModal();
+                }}
+              >
+                Edit Todo
+            </a>
+            )}
 
             <button
               className="close-button"
@@ -57,19 +77,25 @@ class Root extends React.Component {
 }
 
 export default observe(function (app) { // eslint-disable-line func-names
+  const showEditMode$ = new BehaviorSubject(false);
   const formTitleInput$ = new BehaviorSubject('');
   const formDescriptionInput$ = new BehaviorSubject('');
 
   const clearInputs = () => {
     formTitleInput$.next('');
     formDescriptionInput$.next('');
+    showEditMode$.next(false);
   };
 
   return streamProps()
     //Self
     .set(
       app.get('store').getState$(),
-      state => ({ modal: state.modal.value })
+      state => ({
+        modal: state.modal.value,
+        showEditMode: state.modal.showEditMode,
+        todo: state.modal.todo,
+      })
     )
     .set(
       app.get('region').getProps$(),
@@ -82,6 +108,10 @@ export default observe(function (app) { // eslint-disable-line func-names
     .set(
       formDescriptionInput$,
       (descriptionValue) => ({ descriptionValue })
+    )
+    .set(
+      showEditMode$,
+      (showEditMode) => ({ showEditMode })
     )
     .set({
       changeTitleInput: (value) => {
@@ -113,6 +143,12 @@ export default observe(function (app) { // eslint-disable-line func-names
       todosAppStore => ({
         addTodo: (title, description) => todosAppStore.dispatch({
           type: 'TODOS_ADD',
+          title,
+          description
+        }),
+        updateTodo: (id, title, description) => todosAppStore.dispatch({
+          type: 'TODOS_UPDATE',
+          id,
           title,
           description
         })

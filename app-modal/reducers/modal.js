@@ -11,7 +11,9 @@ export default function modal(state = INITIAL_STATE, action) {
   switch (action.type) {
     case OPEN_MODAL:
       return Object.assign({}, {
-        value: true
+        value: true,
+        showEditMode: action.showEditMode,
+        todo: action.todo
       });
 
     case CLOSE_MODAL:

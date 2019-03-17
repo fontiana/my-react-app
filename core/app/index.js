@@ -4,7 +4,7 @@ import RootComponent from '../components/Root';
 import logger from '../services/logger';
 
 export default createApp({
-  name: 'KitchensinkApp',
+  name: 'TodoAppTest',
   providers: [
     {
       name: 'component',

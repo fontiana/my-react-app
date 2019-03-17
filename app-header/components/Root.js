@@ -39,6 +39,7 @@ class Root extends React.Component {
 
     return (
       <div className="top-bar">
+
         <div className="top-bar-inner">
           <div className="top-bar-left">
             <h1>todo</h1>
@@ -46,7 +47,7 @@ class Root extends React.Component {
           <div className="top-bar-right">
             <span
               className="icons"
-              onClick={() => this.props.openModal('ADD')}
+              onClick={() => this.props.openModal(false)}
             >
               <Add />
               <span>add task</span>
@@ -112,8 +113,8 @@ export default observe(function (app) { // eslint-disable-line func-names
     :: map((modalApp) => {
     const modalStore = modalApp.get('store');
     return {
-      openModal: (method) => {
-        return modalStore.dispatch({ type: 'OPEN_MODAL', method });
+      openModal: (showEditMode) => {
+        return modalStore.dispatch({ type: 'OPEN_MODAL', showEditMode });
       }
     };
   });
